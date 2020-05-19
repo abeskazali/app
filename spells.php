@@ -43,7 +43,7 @@ include 'navbar.php';
 
 
         <div class="bg-white p-5">
-            <table class="table">
+            <table class="table" id="datatable">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -54,11 +54,10 @@ include 'navbar.php';
                 </thead>
                 <tbody>
                 <?php
-                $counter = 1;
                 foreach ($spellDetails as $detail) {
                     ?>
                     <tr>
-                        <th scope="row"><?php echo $counter++; ?> </th>
+                        <th scope="row"></th>
                         <td><?php echo $detail['spell']; ?></td>
                         <td><?php echo $detail['type']; ?></td>
                         <td><?php echo $detail['effect']; ?></td>

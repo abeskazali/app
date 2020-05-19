@@ -59,7 +59,7 @@ include 'navbar.php';
 
 
         <div class="bg-white p-5">
-            <table class="table">
+            <table class="table" id="datatable">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -72,12 +72,11 @@ include 'navbar.php';
                 </thead>
                 <tbody>
                 <?php
-                $counter = 1;
                 foreach ($characterDetails as $detail):
                     if (!isset($_GET['house']) || $_GET['house'] == strtolower($detail['house'])) {
                         ?>
                         <tr>
-                            <th scope="row"><?php echo $counter++; ?> </th>
+                            <th scope="row"></th>
                             <td><?php echo $detail['name']; ?></td>
                             <td><?php echo $detail['house']; ?></td>
                             <td><?php echo $detail['role']; ?></td>
