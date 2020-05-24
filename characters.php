@@ -9,34 +9,18 @@ function getTitle()
 
 $apiUrl = "https://www.potterapi.com/v1/characters?key={$config['api_key']}";
 
-//hello
 if (isset($_GET['house'])) {
-    
-    $validHouses = [
-        '5a05e2b252f721a3cf2ea33f' => 'gryffindor',
-        '5a05da69d45bd0a11bd5e06f' => 'ravenclaw',
-        '5a05dc8cd45bd0a11bd5e071' => 'slytherin',
-        '5a05dc58d45bd0a11bd5e070' => 'hufflepuff',
-    ];
+
+    $validHouses = $config['validHouses'];
     if (!in_array($_GET['house'], $validHouses)) {
-        exit('Böyle bir ev yok');
+        exit('Böyle bir bina yok');
     }
 
     $apiUrl .= ($_GET['house'] ? "&house=" . ucfirst($_GET['house']) : '');
 }
 
+
 $characters = file_get_contents($apiUrl);
-function translate($str,$lang1,$lang2)
-{
-    if (!empty($str)) {
-        $data = file_get_contents(preg_replace("/ /", "%20", "https://translate.yandex.net/api/v1.5/tr.json/translate?lang=$lang1-$lang2&key=trnsl.1.1.20200517T084000Z.a97e2d8c203592be.b39042ec7867756140fada1a347146fd019a32d1&text=$str"));
-        $data = json_decode($data, true);
-        echo $data['text'][0];
-    }
-}
-
-
-$characters = file_get_contents("https://www.potterapi.com/v1/characters?key={$config['api_key']}");
 
 $characterDetails = [];
 
@@ -44,12 +28,12 @@ $characters = json_decode($characters, true);
 
 foreach ($characters as $character) {
     $characterDetails[] = [
-        '_id' => $character['_id'],    //house'daki üye bilgisi ile karşılaştırmak için kullanılıyor
+        '_id' => $character['_id'],
         'name' => $character['name'],
-        'house' => $character['house'] ?? '',
-        'role' => $character['role'] ?? '',
-        'bloodStatus' => $character['bloodStatus'],
-        'species' => $character['species']
+        'house' => $character['house'] ?? null,
+        'role' => $character['role'] ?? null,
+        'bloodStatus' => $character['bloodStatus'] ?? null,
+        'species' => $character['species'] ?? null
     ];
 }
 
@@ -70,7 +54,10 @@ include 'navbar.php';
         <section class="jumbotron text-center pt-5 mb-5 bg-white">
             <div class="container">
                 <h1 class="jumbotron-heading"><?php echo getTitle(); ?></h1>
-                <span><?php echo $_GET['house'] ?? '' ?></span>
+                <?php if(isset($_GET['house'])): ?>
+                    <img class="card-img-top" style="width: 5%" src="/assets/images/houses/<?php echo $_GET['house'] ?>.jpg" alt="<?php echo $_GET['house']; ?>">
+                    <span><?php echo strtoupper($_GET['house']) ?></span>
+                <?php endif; ?>
             </div>
         </section>
 
@@ -79,17 +66,17 @@ include 'navbar.php';
             <table class="table" id="datatable">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Avatar</th>
-                    <th scope="col">Ad</th>
-                    <th scope="col">Rol</th>
-                    <th scope="col">Ev</th>
+                    <th scope="col" style="width: 15%">Avatar</th>
+                    <th scope="col" style="width: 15%">Ad</th>
+                    <th scope="col" style="width: 25%">Rol</th>
+                    <th scope="col">Bina</th>
                     <th scope="col">Kan Durumu</th>
                     <th scope="col">Tür</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
                 $counter = 1;
@@ -111,10 +98,11 @@ include 'navbar.php';
 
                 // Karakter sayfasından çekilen karakter bilgilerini tabloya yazdırma
 >>>>>>> upstream/master
+=======
+>>>>>>> 18d762083ddaa6a5a87796c882aa43360de7ef7c
                 foreach ($characterDetails as $detail):
-                    if (!isset($_GET['house']) || $_GET['house'] == strtolower($detail['house'])) {
-                    // house bilgisi girilmemişse yani house sayfasından butona basılmamışsa tüm karakterleri yazar
                 ?>
+<<<<<<< HEAD
                         <tr>
 <<<<<<< HEAD
                             <th scope="row"></th>
@@ -186,6 +174,20 @@ include 'navbar.php';
                         }
                     }
                 endforeach;
+=======
+                    <tr>
+                        <td>
+                            <img style=" width: 50%; height: auto;" alt="" class="card-img-top" src="assets/images/characters/<?php echo $detail['name']?>.jpg">
+                        </td>
+                        <td><?php echo $detail['name'];?></td>
+                        <td><?php echo $detail['role'];?></td>
+                        <td><?php echo $detail['house'];?></td>
+                        <td><?php echo $detail['bloodStatus'];?></td>
+                        <td><?php echo $detail['species'];?></td>
+                    </tr>
+                <?php
+                    endforeach;
+>>>>>>> 18d762083ddaa6a5a87796c882aa43360de7ef7c
                 ?>
                 </tbody>
             </table>
