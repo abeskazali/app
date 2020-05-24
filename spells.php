@@ -31,43 +31,44 @@ include 'navbar.php';
 
 ?>
 
-<div class="pt-5">
+    <div class="pt-5">
 
-    <div class="container">
+        <div class="container">
 
-        <section class="jumbotron text-center pt-5 mb-5 bg-white">
-            <div class="container">
-                <h1 class="jumbotron-heading"><?php echo getTitle(); ?></h1>
-            </div>
-        </section>
+            <section class="jumbotron text-center pt-5 mb-5 bg-white">
+                <div class="container">
+                    <h1 class="jumbotron-heading"><?php echo getTitle(); ?></h1>
+                </div>
+            </section>
 
 
-        <div class="bg-white p-5">
-            <table class="table" id="datatable">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Büyü</th>
-                    <th scope="col">Tür</th>
-                    <th scope="col">Etki</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php
-                foreach ($spellDetails as $detail) {
-                    ?>
+            <div class="bg-white p-5">
+                <table class="table">
+                    <thead>
                     <tr>
-                        <th scope="row"></th>
-                        <td><?php echo $detail['spell']; ?></td>
-                        <td><?php echo $detail['type']; ?></td>
-                        <td><?php echo $detail['effect']; ?></td>
+                        <th scope="col">#</th>
+                        <th scope="col">Büyü</th>
+                        <th scope="col">Tür</th>
+                        <th scope="col">Etki</th>
                     </tr>
-                <?php } ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    <?php
+                    $counter = 1;
+                    foreach ($spellDetails as $detail) {
+                        ?>
+                        <tr>
+                            <th scope="row"><?php echo $counter++; ?> </th>
+                            <td><?php echo $detail['spell']; ?></td>
+                            <td><?php echo $detail['type']; ?></td>
+                            <td><?php echo $detail['effect']; ?></td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 
 
 <?php
